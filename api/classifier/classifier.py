@@ -5,7 +5,7 @@ nltk.download('stopwords')
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 import os
-
+import json
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -38,7 +38,7 @@ def test_data(data, label):
 
     response = model.predict(data_test)
 
-    return response[0]
+    return str(response[0])
 
 def getClassifier(question):
 
@@ -71,8 +71,15 @@ def getClassifier(question):
     response_simulation = test_data(question, 't_simulation')
     #print(response_simulation)
 
-    result = {"collect": response_collect, "analysis": response_analysis, "representation": response_representation,
-            "decomposition": response_decomposition, "algorithms": response_algorithms, "abstraction": response_abstraction,
-            "automation": response_automation, "parallelization": response_parallelization, "simulation": response_simulation}
+    result = json.dumps({
+              "collect": response_collect,
+              "analysis": response_analysis,
+              "representation": response_representation,
+              "decomposition": response_decomposition,
+              "algorithms": response_algorithms,
+              "abstraction": response_abstraction,
+              "automation": response_automation,
+              "parallelization": response_parallelization,
+              "simulation": response_simulation})
 
-    return result.items()
+    return result
